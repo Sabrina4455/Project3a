@@ -34,7 +34,7 @@ def stocks():
                 
                 
                 #This chart variable is what is passed to the stock.html page to render the chart returned from the api
-                chart = "ASSIGN CHART TO THIS VARIABLE"
+                chart = makeGraph(symbol, chart_type, time_series, start_date, end_date)
 
             return render_template("stock.html", form=form, template="form-template", err = err, chart = chart)
     
