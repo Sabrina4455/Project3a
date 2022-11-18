@@ -53,17 +53,16 @@ def refineData(data,bd,ed,function):
             continue
     return list1
 
-
-def makeGraph(choice,data6,lowDate,highDate,symbol,function): #has to match makeGraph variable in routes.py file
+def makeGraph(chart_type,data6,start_date,end_date,symbol,function): #has to match makeGraph variable in routes.py file
     open2=[]
     high1=[]
     low1=[]
     close1=[]
     volume1=[]
     date1=[]
-    if choice == "1":
+    if chart_type == "1":
         chart=pygal.Line(x_label_rotation=45)
-    if choice == "2":
+    if chart_type == "2":
         chart=pygal.Bar(x_label_rotation=45)
     for item in data6:
         temp = item.getOpen()
@@ -78,20 +77,21 @@ def makeGraph(choice,data6,lowDate,highDate,symbol,function): #has to match make
         volume1.append(temp)
         temp=item.getDate()
         date1.append(temp)
-    chart.title = ''+symbol+' stock data from '+lowDate+' to ' +highDate+''
+    chart.title = ''+symbol+' stock data from '+start_date+' to ' +end_date+''
     temp10=date1
     temp10.reverse()
     if function == "1":
-        lowDate = lowDate + ' 00:00:00'
-    if choice != "1":
-        lowDate = lowDate
-    temp10.insert(0,lowDate)
+        start_date = start_date + ' 00:00:00'
+    if chart_type != "1":
+        start_date = start_date
+    temp10.insert(0,start_date)
     chart.x_labels = temp10                                                                      
     chart.add('Open',open2)
     chart.add('High',high1)
     chart.add('Low',low1)
     chart.add('Close',close1)
-    chart.render_in_browser() 
+    chart.render_in_browser()
+ 
 
 #Helper function for converting date
 def convert_date(str_date):
